@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Custombutton, Custominput } from '../components'
-import { LOGIN_ROUTE } from '../constants'
+import { BASE_URL, LOGIN_ROUTE, AUTH_SIGNUP, HOME_ROUTE } from '../constants'
+import { signupUser } from '../store/auth.slice'
+
 
 const initialState = {
     firstname: "",
@@ -13,11 +17,23 @@ const initialState = {
 
 const Signup = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [form, setForm] = useState(initialState);
+    const { signupSuccess } = useSelector((state: any) => state.auth);
+
+    useEffect(() => {
+        if(signupSuccess) navigate(HOME_ROUTE);
+    }, [signupSuccess])
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
         setForm((form) => ({ ...form, [name]: value }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { firstname, lastname, email, password } = form;
+        dispatch(signupUser({firstname, lastname, email, password}))
     }
 
     return (
@@ -56,8 +72,9 @@ const Signup = () => {
           <Custombutton 
             btnType="submit"
             title="Sign Up"
-            handleClick={() => {}}
+            handleClick={handleSubmit}
             styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[500px] mt-[70px] font-epilogue"
+            disabled={!form.firstname || !form.lastname || !form.email || !form.password}
           />
           </form>
           <div className='flex justify-around items-center mt-4'>
