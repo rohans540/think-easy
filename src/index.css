@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  input[type="text"]:focus ~ .label-text {
+    @apply border-white bg-[#222] transform -translate-y-6 -translate-x-2 scale-75
+  }
