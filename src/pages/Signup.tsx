@@ -19,11 +19,11 @@ const Signup = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [form, setForm] = useState(initialState);
-    const { signupSuccess } = useSelector((state: any) => state.auth);
+    const { authSuccess } = useSelector((state: any) => state.auth);
 
     useEffect(() => {
-        if(signupSuccess) navigate(HOME_ROUTE);
-    }, [signupSuccess])
+        if(authSuccess) navigate(HOME_ROUTE);
+    }, [authSuccess])
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
