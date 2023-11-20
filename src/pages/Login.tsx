@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Custombutton, Custominput } from '../components';
-import { HOME_ROUTE, SIGNUP_ROUTE } from '../constants';
+import { POSTS_ROUTE, SIGNUP_ROUTE } from '../constants';
 import { loginUser } from '../store/auth.slice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,7 +18,7 @@ const Login = () => {
   const { authSuccess } = useSelector((state: any) => state.auth );
 
   useEffect(() => {
-    if(authSuccess) navigate(HOME_ROUTE)
+    if(authSuccess) navigate(POSTS_ROUTE)
   }, [authSuccess])
 
   const handleFormChange = (e) => {
@@ -55,10 +55,10 @@ const Login = () => {
         btnType="submit"
         title="Login"
         handleClick={handleSubmit}
-        styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[500px] mt-[70px] font-epilogue"
+        styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[80%] mt-[70px] font-epilogue"
       />
       </form>
-      <div className='flex justify-around items-center mt-4'>
+      <div className='flex justify-around items-center mt-4 w-[80%]'>
                 <span className='text-white font-epilogue text-[14px]'>
                         Don't have an account? &nbsp;
                         <span 

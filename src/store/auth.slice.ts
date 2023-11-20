@@ -36,9 +36,7 @@ export const loginUser = createAsyncThunk(
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        loggedIn: false,
         refreshToken: '',
-        user: {},
         authSuccess: false,
         loading: false
     },
@@ -54,13 +52,11 @@ const authSlice = createSlice({
                 localStorage.setItem('accessToken', action.payload.data.accessToken);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.data.accessToken}`
                 state.authSuccess = true
-                state.loggedIn = true
             })
             .addCase(signupUser.rejected, (state: any) => {
                 state.loading = false;
                 state.refreshToken = '';
                 state.authSuccess = false
-                state.loggedIn = false
             })
             .addCase(loginUser.pending, (state: any) => {
                 state.loading = true
@@ -70,9 +66,8 @@ const authSlice = createSlice({
                 localStorage.setItem('refreshToken', action.payload.data.refreshToken);
                 localStorage.setItem('accessToken', action.payload.data.accessToken);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.data.accessToken}`
-                state.user = action.payload.data.user
+                localStorage.setItem('user', JSON.stringify(action.payload.data.user))
                 state.authSuccess = true
-                state.loggedIn = true
             })
     }
 })

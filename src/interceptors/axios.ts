@@ -19,24 +19,3 @@ axios.interceptors.response.use(resp => resp, async error => {
     }
     return error;
 })
-
-axios.interceptors.request.use(
-    async (config: any) => {
-        if(!config.headers.Authorization) {
-            if(config.url.includes('auth')) {
-                return config;
-            } else {
-                const token = localStorage.getItem('refreshToken');
-                const response = await axios.post(AUTH_REFRESH, { token })
-                if(response.status === 200) {
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-                    return axios(config);
-                }
-            }
-        }
-        return config;
-    },
-    (error: any) => {
-        return Promise.reject(error);
-    }
-)

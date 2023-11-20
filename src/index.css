@@ -13,6 +13,12 @@
     color-scheme: dark;
   }
 
+  .green-pink-gradient {
+    background: "#00cea8";
+    background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+  }
+
   input[type="text"]:focus ~ .label-text {
     @apply border-white bg-[#222] transform -translate-y-6 -translate-x-2 scale-75
   }
