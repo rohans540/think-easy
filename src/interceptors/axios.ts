@@ -27,7 +27,7 @@ axios.interceptors.request.use(
                 return config;
             } else {
                 const token = localStorage.getItem('refreshToken');
-                const response = await axios.post(AUTH_REFRESH, { token })
+                // const response = await axios.post(AUTH_REFRESH, { token })
                 if(response.status === 200) {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
                     return axios(config);

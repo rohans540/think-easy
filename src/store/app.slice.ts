@@ -14,12 +14,25 @@ export const getAllPosts: any = createAsyncThunk(
     }
 )
 
+export const createPost: any = createAsyncThunk(
+    'app/createPost',
+    async (request: any, { rejectWithValue }) => {
+        try {
+            return await axios.post(POSTS, request)
+        } catch(error) {
+            console.log(error);
+            rejectWithValue(error?.response?.data)
+        }
+    }
+)
+
 
 const appSlice = createSlice({
     name: 'app',
     initialState: {
         posts: [] as any,
-        loading: false
+        loading: false,
+        createSuccess: false
     },
     reducers: {},
     extraReducers(builder: any) {
@@ -30,11 +43,20 @@ const appSlice = createSlice({
             .addCase(getAllPosts.fulfilled, (state: any, action: any) => {
                 console.log('accessToken is..', localStorage.getItem('accessToken'));
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-                console.log('get posts..', action);
                 state.loading = false;
                 state.posts = action.payload.data
             })
             .addCase(getAllPosts.rejected, (state: any) => {
+                state.loading = false;
+            })
+            .addCase(createPost.pending, (state: any) => {
+                state.loading = true;
+            })
+            .addCase(createPost.fulfilled, (state: any, action: any) => {
+                state.loading = false;
+                state.createSuccess = true;
+            })
+            .addCase(createPost.rejected, (state: any) => {
                 state.loading = false;
             })
     }
