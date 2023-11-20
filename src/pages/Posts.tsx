@@ -9,8 +9,14 @@ const Posts = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const { loggedIn, user } = useSelector((state: any) => state.auth);
+  const [user,setUser] = useState({} as any);
   const { posts, createSuccess } = useSelector((state: any) => state.app);
+
+  useState(() => {
+    const userData = localStorage.getItem('user');
+    if(userData)
+      setUser(JSON.parse(userData));
+  }, [])
 
   useEffect(() => {
     if(createSuccess) setIsOpen(false);
