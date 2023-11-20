@@ -14,6 +14,17 @@ export const getAllPosts: any = createAsyncThunk(
     }
 )
 
+export const getPostById: any = createAsyncThunk(
+    'app/getPostById',
+    async (id: string) => {
+        try {
+            return await axios.get(`${POSTS}/${id}`)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+)
+
 export const createPost: any = createAsyncThunk(
     'app/createPost',
     async (request: any, { rejectWithValue }) => {
@@ -31,6 +42,7 @@ const appSlice = createSlice({
     name: 'app',
     initialState: {
         posts: [] as any,
+        currentPost: {},
         loading: false,
         createSuccess: false
     },
@@ -41,7 +53,6 @@ const appSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getAllPosts.fulfilled, (state: any, action: any) => {
-                console.log('accessToken is..', localStorage.getItem('accessToken'));
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
                 state.loading = false;
                 state.posts = action.payload.data
@@ -49,6 +60,18 @@ const appSlice = createSlice({
             .addCase(getAllPosts.rejected, (state: any) => {
                 state.loading = false;
             })
+
+            .addCase(getPostById.pending, (state: any) => {
+                state.loading = true;
+            })
+            .addCase(getPostById.fulfilled, (state: any, action: any) => {
+                state.loading = false;
+                state.currentPost = action.payload.data
+            })
+            .addCase(getPostById.rejected, (state: any) => {
+                state.loading = false
+            })
+            
             .addCase(createPost.pending, (state: any) => {
                 state.loading = true;
             })

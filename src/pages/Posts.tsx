@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { getAllPosts } from '../store/app.slice';
 import { Postcard, CreatePost } from '../components';
+import { POSTS_DETAILS } from '../constants';
 
 
 const Posts = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [user,setUser] = useState({} as any);
   const { posts, createSuccess } = useSelector((state: any) => state.app);
@@ -33,7 +36,7 @@ const Posts = () => {
       <h1 className='flex w-full justify-center items-center h-[50px] mt-4 text-white'>Welcome {user.firstname}</h1>
       <div className='w-full h-full flex justify-center flex-wrap gap-7'>
           {posts?.length > 0 && posts.map((post: any) => (
-              <Postcard post={post} />
+              <Postcard post={post} onClick={() => navigate(POSTS_DETAILS(post.id))} />
           ))}
       </div>
       {isOpen && 

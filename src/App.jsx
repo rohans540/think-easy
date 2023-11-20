@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { Login, Signup, Posts } from './pages'
+import { Login, Signup, Posts, PostDetails } from './pages'
+import { LOGIN_ROUTE, SIGNUP_ROUTE, POSTS_ROUTE, POSTS_DETAILS } from './constants'
 import './App.css'
 
 function App() {
@@ -8,9 +9,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/posts' element={<Posts />} />
+        <Route path={LOGIN_ROUTE} element={<Login />} />
+        <Route path={SIGNUP_ROUTE} element={<Signup />} />
+        <Route path={POSTS_ROUTE} element={<Posts />} />
+        <Route path={POSTS_DETAILS(':id')} element={<PostDetails />} />
       </Routes>
     </>
   )
