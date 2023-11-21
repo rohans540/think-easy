@@ -60,7 +60,7 @@ const CreatePost = ({ isOpen, setIsOpen }: any) => {
                     btnType="submit"
                     title="Submit"
                     handleClick={handleSubmit}
-                    styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[80%] mt-[70px] font-epilogue"
+                    styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[80%] h-[70px] mt-[70px] font-epilogue"
                     disabled={!form.title || !form.content}
                 />
             </form>

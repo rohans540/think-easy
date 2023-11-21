@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Custombutton, Custominput } from '../components'
+import { Custombutton, Custominput, Loader } from '../components'
 import { BASE_URL, LOGIN_ROUTE, AUTH_SIGNUP, POSTS_ROUTE } from '../constants'
 import { signupUser } from '../store/auth.slice'
 
@@ -19,7 +19,7 @@ const Signup = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [form, setForm] = useState(initialState);
-    const { authSuccess } = useSelector((state: any) => state.auth);
+    const { authSuccess, loading } = useSelector((state: any) => state.auth);
 
     useEffect(() => {
         if(authSuccess) navigate(POSTS_ROUTE);
@@ -73,7 +73,7 @@ const Signup = () => {
             btnType="submit"
             title="Sign Up"
             handleClick={handleSubmit}
-            styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[80%] sm:min-w-[100px] mt-[70px] font-epilogue"
+            styles="bg-[#874ce8] hover:text-[#874ce8] hover:bg-white transition-all duration-500 ease-in-out w-[80%] h-[70px] sm:min-w-[100px] mt-[70px] font-epilogue"
             disabled={!form.firstname || !form.lastname || !form.email || !form.password}
           />
           </form>
@@ -88,6 +88,7 @@ const Signup = () => {
                             </span>
                     </span>
             </div>
+            <Loader isOpen={loading} />
         </div>
       )
 }

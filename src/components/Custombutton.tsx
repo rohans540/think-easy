@@ -12,7 +12,7 @@ const Custombutton = ({ btnType, title, handleClick, styles = '', disabled = fal
     return (
       <button
         type={btnType}
-        className={`font-epilogue font-semibold text-[16px] leading-[26px] text-white min-h-[42px] px-5 rounded-[10px] my-[10px] h-[70px] ${styles}`}
+        className={`font-epilogue font-semibold text-[16px] leading-[26px] text-white px-5 rounded-[10px] my-[10px] ${styles}`}
         onClick={handleClick}
         disabled={disabled}
       >
